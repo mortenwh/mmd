@@ -7,5 +7,5 @@ services:
       dockerfile: Dockerfile.coverage
     volumes:
       - .:/src
-    command: bash -c "coverage run --source utils utils/nc_to_mmd.py; coverage report"
+    command: bash -c "coverage run --omit=tests --source utils utils/nc_to_mmd.py; coverage report"
 
