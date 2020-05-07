@@ -1,0 +1,23 @@
+
+name: coverage
+
+on: ["push", "pull_request"]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: create html and pdf
+      run: |
+        docker-compose -f docker-compose.coverage.yml up
+
+    - name: coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+

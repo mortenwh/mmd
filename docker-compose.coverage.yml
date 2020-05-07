@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  coverage:
+    build:
+      context: .
+      dockerfile: Dockerfile.coverage
+    volumes:
+      - .:/src
+    command: bash -c "coverage run --source utils utils/nc_to_mmd.py; coverage report"
+
