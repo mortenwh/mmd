@@ -11,14 +11,16 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: create html and pdf
+    - name: run coverage testing
       run: |
         docker-compose -f docker-compose.coverage.yml up
 
-    - name: coveralls
-      uses: coverallsapp/github-action@master
+    - uses: codecov/codecov-action@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: .coverage
+        #token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+        #file: ./coverage.xml # optional
+        flags: unittests # optional
+        name: mmd-unittest # optional
+        fail_ci_if_error: true # optional (default = false)
 
 
