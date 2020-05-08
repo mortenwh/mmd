@@ -22,7 +22,10 @@ import lxml.etree as ET
 import operator
 import datetime
 import requests
-from urlparse import urlparse
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 import glob
 import logging
 import os
@@ -179,8 +182,9 @@ class CheckMMD():
             NOTE: valid_formats should be extended if need for other formats
         """
         valid_formats = ["%Y-%m-%d","%Y-%m-%dT%H","%Y-%m-%dT%H:%M",
-                        "%Y-%m-%dT%H:%M:%S","%Y-%m-%dT%H:%M:%S.%fZ",
-                        "%Y-%m-%dT%H:%M:%S%fZ", "%Y-%m-%dT%H:%M:%S.%f"]
+                         "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M:%SZ",
+                         "%Y-%m-%dT%H:%M:%S.%fZ",
+                         "%Y-%m-%dT%H:%M:%S%fZ", "%Y-%m-%dT%H:%M:%S.%f"]
         for f in valid_formats:
             try:
                 if datetime.datetime.strptime(date,f):
@@ -342,7 +346,7 @@ class CheckMMD():
             return True
 
 
-def main():
+def main(argv):
     #Test Data
     mmd_file = '/path/to/my/XML/myfile.xml'
     xsd = '../xsd/mmd.xsd' # The XSD is located in the "xsd" directory in this repo
@@ -355,6 +359,7 @@ def main():
         print(sys.argv[0] + ' -i <inputfile>')
         sys.exit(2)
     for opt, arg in opts:
+        print(opt, arg)
         if opt == '-h':
             usage()
             sys.exit()
@@ -394,4 +399,3 @@ def main():
         
 if __name__ == '__main__':
     main(sys.argv[1:])
-    
