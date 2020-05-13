@@ -105,3 +105,4 @@ Badges at the top of this README indicate if tests are passing, and the actual t
 
 ## Licenses
 GPL 3 or higher for software, Creative Commons BY for documents.
+
